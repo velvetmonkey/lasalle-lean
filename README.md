@@ -1,5 +1,6 @@
 # lasalle-lean
 
+[![thread](https://img.shields.io/badge/%F0%9F%A7%B5-how%20it%20works-1DA1F2)](https://x.com/thevelvetmonke)
 [![Lean 4](https://img.shields.io/badge/Lean-4.28.0-blue)](https://lean-lang.org/)
 [![Mathlib](https://img.shields.io/badge/Mathlib-v4.28.0-purple)](https://github.com/leanprover-community/mathlib4)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
@@ -12,7 +13,15 @@ Lean 4 formal proofs of LaSalle's invariance principle for continuous semiflows:
 
 **Zero sorry statements.** Standard axioms only (`propext`, `Classical.choice`, `Quot.sound`).
 
-## Why it matters
+## What this is, and why it matters
+
+This library formalizes LaSalle's invariance principle for continuous semiflows. Its headline theorem, `LaSalleSetup.lasalle_convergence`, proves that the omega-limit set of a trajectory starting in a compact invariant set lies inside the largest positively invariant subset of the set where the orbital derivative is zero.
+
+The result handles the case where a Lyapunov function is nonincreasing but not strictly decreasing. Compactness and monotonicity give a limiting Lyapunov value, continuity makes that value constant on omega-limit points, and invariance carries the constancy along their future trajectories. The setup's derivative link then places those trajectories in the zero set.
+
+The theorem assumes the continuous semiflow, compact invariant region, Lyapunov monotonicity, and the implication from orbitwise constancy to zero orbital derivative. It does not construct solutions from an ODE or prove these conditions for a specific system. Its conclusion is containment of the omega-limit set, not necessarily convergence to one equilibrium or a rate of approach.
+
+## Background and motivation
 
 Lyapunov's direct method proves stability when V̇ < 0 strictly. But for many real systems V̇ is only *non-positive* — V̇ ≤ 0, with equality on a whole set — and Lyapunov's theorem alone cannot conclude convergence. LaSalle's invariance principle is what closes that gap: trajectories must converge to the **largest invariant set contained in {V̇ = 0}**, not merely to where V̇ = 0 pointwise. This is the workhorse result behind convergence proofs for oscillator networks, adaptive control, and gradient-like flows. This library machine-checks it for continuous semiflows over a general space.
 
